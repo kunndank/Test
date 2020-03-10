@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-md-12" style="margin-left: 15px">
+		<div style="padding-bottom: 20px; padding-top: 10px;">
+			<%= search_form_for @q, url: articles_path do |f| %>
+				<div class="row" style="padding-left: 20px">
+
+					<%= f.label :select, 'Article:', class: 'col-md-2' %>
+					<%= f.search_field :title_or_text_cont, :placeholder => "Search by title or text" %>
+				
+					<%= f.label :select, 'Article Category:', class: 'col-md-2' %>
+					<%= f.collection_select(:article_category_id_in, ArticleCategory.active.order(:position),:id,:name, {:include_blank => true})%>											
+				
+					<%= f.label :select, 'User:', class: 'col-md-2' %>
+					<%= f.collection_select(:user_id_eq, User.order(:name),:id,:name, {include_blank: true})%>
+					
+					<%= f.submit "Search" , :class => "bg" %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

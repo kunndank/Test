@@ -1,0 +1,26 @@
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @article.text %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @article.state %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @article.is_active %>
+</p>
+
+<p>
+  <strong>Article category:</strong>
+  <%= @article.article_category.name %>
+</p>
+
+<%= link_to 'Back', articles_path %>

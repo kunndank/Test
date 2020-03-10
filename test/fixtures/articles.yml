@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  text: MyString
+  state: MyString
+  is_active: false
+  article_category_id: 1
+
+two:
+  title: MyString
+  text: MyString
+  state: MyString
+  is_active: false
+  article_category_id: 1

@@ -1,0 +1,76 @@
+<% unless current_user.present? %>
+<%= render 'shared/topbar' %>
+<% end %>
+
+<h1>Articles</h1>
+
+<div style="margin-left: 80%">
+
+  <% if current_user.present? %>
+    <span><a href="<%= edit_user_path(current_user.id)%>" data-method="get">Edit Profile</a> | </span>
+  <% end %>
+  <% if current_user.present? %>
+    <a href="<%= destroy_user_session_path%>" data-method="delete">Sign out</a></th>
+  <% end %> 
+  
+</div>
+
+<%= render 'search' %>
+
+<table>
+  <thead>
+    <tr>
+      <th class="w20">Title</th>
+      <th class="w30">Text</th>
+      <th class="w20">State</th>
+      <th class="w10">Is active</th>
+      <th class="w10">Article category</th>
+      <th class="w20">Details</th>      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td class="w20 cntr"><%= article.title %></td>
+        <td class="w30 cntr"><%= article.text %></td>
+        <td class="w20 cntr"><%= article.state %></td>
+        <td class="w10 cntr"><%= article.is_active %></td>
+        <td class="w10 cntr"><%= article.article_category.name %></td>
+        <td class="w10 cntr"><%= link_to 'Show', article %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Article', new_article_path %>
+
+<%= render :partial => 'shared/pagination', :locals => {:pagination_records => @articles} %>
+
+
+
+
+
+<!-- CSS -->
+
+<style type="text/css">
+
+.w20{
+  width: 20%;
+}
+.w30{
+  width: 30%;
+}
+.w10{
+  width: 10%;
+}
+.cntr{
+  text-align: center;
+}
+.bg{
+  background-color: #87CEFA;
+}
+
+</style>

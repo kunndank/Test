@@ -1,0 +1,167 @@
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @user.gender %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', articles_path %>
+
+
+
+<div class="row" style="padding-bottom: 5px">
+	<div class="col-md-4 col-md-offset-4" style="padding-top: 15px; margin-left: 320px">
+		<button type="button" id="publish_article">Publish</button>
+		<button type="button" id="archive_article">Archive</button>
+	</div>
+</div>
+<h3>Articles List</h3>
+<table>
+  <thead>
+    <tr>
+      <th><input type="checkbox" class="select_all" id="article_all_checkbox"><label for="article_all_checkbox" class="table-checkbox"></label></th>
+      <th class="w20">Title</th>
+      <th class="w30">Text</th>
+      <th class="w20">State</th>
+      <th class="w10">Is active</th>
+      <th class="w10">Article category</th>
+      <th class="w20">Details</th>      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+      	<td><input type="checkbox" class="checkbox" id="article_<%=article.id%>">
+            <label for="article_<%=article.id%>" class="table-checkbox"></label></td>
+        <td class="w20 cntr"><%= article.title %></td>
+        <td class="w30 cntr"><%= article.text %></td>
+        <td class="w20 cntr"><%= article.state %></td>
+        <td class="w10 cntr"><%= article.is_active %></td>
+        <td class="w10 cntr"><%= article.article_category.name %></td>
+        <td class="w10 cntr"><%= link_to 'Show', article %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Article', new_article_path %>
+
+
+
+
+
+<!-- CSS -->
+
+<style type="text/css">
+
+.w20{
+  width: 20%;
+}
+.w30{
+  width: 30%;
+}
+.w10{
+  width: 10%;
+}
+.cntr{
+  text-align: center;
+}
+.bg{
+  background-color: #87CEFA;
+}
+
+</style>
+
+<script>
+    //select all checkboxes
+  $(".select_all").change(function(){
+    $(".checkbox").prop('checked', $(this).prop("checked"));
+  });
+</script>
+
+<script type="text/javascript">
+	
+	$('#archive_article').click(function () {
+		var article_ids = [];
+		$('.checkbox:checked').each(function () { 
+			article_ids.push(this.name)
+		});
+		if(article_ids.length === 0) {
+			alert("Please select articles")
+		} else {
+			update_articles(article_ids)
+		}
+		return false;
+	});
+
+	
+	function update_articles(data){
+		$.ajax({
+			type: 'PUT',
+			url: '/articles/bulk_archive_articles',
+			data: {"article_ids": data},
+			dataType: 'script',
+			success: function(data){
+				if(data.success){
+
+				}
+				else{
+
+				}
+			}
+		});
+	}
+
+</script>
+
+<script type="text/javascript">
+	var $ = jQuery;
+	$('#publish_article').click(function () {
+		var article_ids = [];
+		$('.checkbox:checked').each(function () { 
+			article_ids.push(this.name)
+		});
+		if(article_ids.length === 0) {
+			alert("Please select articles")
+		} else {
+			update_articles(article_ids)
+		}
+		return false;
+	});
+
+	function update_articles(data){
+		$.ajax({
+			type: 'PUT',
+			url: '/articles/bulk_publish_articles',
+			data: {"article_ids": data},
+			dataType: 'script',
+			success: function(data){
+				if(data.success){
+
+				}
+				else{
+
+				}
+			}
+		});
+	}
+
+</script>
+
